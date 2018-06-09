@@ -23,10 +23,10 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'brookhong/ag.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
@@ -46,13 +46,11 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 if executable('ag')
-  " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ackprg = 'ag --vimgrep'
 
-  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   let g:ctrlp_use_caching = 0
 endif
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|)|\.pyc$'
@@ -62,7 +60,8 @@ let g:airline_section_y = ''
 let g:airline_section_z = '(%p%%) %l/%L  : %c'
 let g:airline_theme = 'base16_colors'
 
-map <c-k> :Ag! "\b<C-R><C-W>\b"<CR>
+map <c-k> :Ack! "\b<C-R><C-W>\b"<CR>
+nnoremap K :Ack!<Space>
 
 colorscheme dark-ruby
 

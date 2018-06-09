@@ -44,6 +44,7 @@ let NERDTreeIgnore = ['\.pyc$']
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
+nnoremap <silent> <buffer> o <CR>:ccl<CR>
 if executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor

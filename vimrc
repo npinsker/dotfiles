@@ -26,11 +26,14 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'flazz/vim-colorschemes'
 Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-surround'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
+
+" Color plugins
+Plugin 'sentientmachine/Pretty-Vim-Python'
 Plugin 'vim-airline/vim-airline-themes'
 
 call vundle#end()
@@ -68,7 +71,7 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_use_caching = 0
+  let g:ctrlp_clear_cache_on_exit = 0
 endif
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|)|\.pyc$'
 
@@ -77,10 +80,10 @@ let g:airline_section_y = ''
 let g:airline_section_z = '(%p%%) %l/%L  : %c'
 let g:airline_theme = 'base16_colors'
 
-map <c-k> :Ack! "\b<C-R><C-W>\b"<CR>
 nnoremap K :Ack!<Space>
 
-colorscheme dark-ruby
+colorscheme molokai
+highlight Comment cterm=bold
 
 filetype plugin indent on
 syntax on

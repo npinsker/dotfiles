@@ -43,23 +43,11 @@ map <Leader> <Plug>(easymotion-prefix)
 
 map <Leader>cl :FormatCode<CR>
 
-" Check if NERDTree is open or active
-function! IsNERDTreeOpen()        
-  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
-endfunction
-" Call NERDTreeFind iff NERDTree is active, current window contains a
-" modifiable file, and we're not in vimdiff
-function! SyncTree()
-  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
-    NERDTreeFind
-    wincmd p
-  endif
-endfunction
-
 " Highlight currently open buffer in NERDTree
-" autocmd BufEnter * call SyncTree()
+autocmd BufEnter * silent! if bufname('%') !~# 'NERD_tree_' | cd %:p:h | NERDTreeCWD | wincmd p | endif
 
-map <c-n> :NERDTreeToggle<CR>:call SyncTree()<CR>
+
+map <c-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$']
 
 let g:ctrlp_map = '<c-p>'

@@ -57,7 +57,7 @@ function! SyncTree()
 endfunction
 
 " Highlight currently open buffer in NERDTree
-autocmd BufEnter * call SyncTree()
+" autocmd BufEnter * call SyncTree()
 
 map <c-n> :NERDTreeToggle<CR>:call SyncTree()<CR>
 let NERDTreeIgnore = ['\.pyc$']

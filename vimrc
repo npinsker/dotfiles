@@ -10,6 +10,7 @@ set shiftwidth=2
 set showcmd
 set smartcase
 set tabstop=2
+set t_Co=256
 if &term =~ '^screen'
   set ttymouse=xterm2
 endif
@@ -44,7 +45,7 @@ map <Leader> <Plug>(easymotion-prefix)
 map <Leader>cl :FormatCode<CR>
 
 " Highlight currently open buffer in NERDTree
-autocmd BufEnter * silent! if bufname('%') !~# 'NERD_tree_' | cd %:p:h | NERDTreeCWD | wincmd p | endif
+" autocmd BufEnter * silent! if bufname('%') !~# 'NERD_tree_' | cd %:p:h | NERDTreeCWD | wincmd p | endif
 
 
 map <c-n> :NERDTreeToggle<CR>

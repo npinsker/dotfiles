@@ -5,7 +5,24 @@
       force: true
       path: bashrc
     ~/.bash_aliases: bash_aliases
+
     ~/.tmux.conf: tmux.conf
     ~/.vimrc: vimrc
 
+    ~/.config/git/ignore:
+      create: true
+      path: git/config/.gitignore
 
+    ~/.config/git/config:
+      create: true
+      path: git/config/.gitconfig
+
+    ~/.config/fish/config.fish:
+      create: true
+      force: true
+      path: fish/config.fish
+
+    ~/.config/fish/functions:
+      create: true
+      force: true
+      path: fish/functions

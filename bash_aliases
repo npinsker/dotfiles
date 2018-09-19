@@ -1,6 +1,21 @@
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias gg='git grep'
+alias gc="git commit"
+alias ga="git add"
+alias gs="git status"
+alias gst="git stash pop"
+
+g()
+{
+  cd $1 && ls
+}
+
+ggo()
+{
+  vim $(git grep "$1" | awk -F":" '{ print $1 }')
+}
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -18,3 +33,5 @@ fi
 
 # tmux 256-color support
 alias tmux='tmux -2'
+
+alias diff-base='git diff ${u}...HEAD'

@@ -9,6 +9,7 @@ set nocompatible
 set noswapfile
 set ruler
 set scrolloff=5
+set shell=bash
 set shiftwidth=2
 set showcmd
 set smartcase
@@ -43,10 +44,12 @@ Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
 
 " Syntax
+Plugin 'davidhalter/jedi-vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 
 " Color & appearance plugins
+Plugin 'ervandew/supertab'
 Plugin 'ryanoasis/vim-webdevicons'
 Plugin 'sentientmachine/Pretty-Vim-Python'
 Plugin 'vim-airline/vim-airline-themes'
@@ -102,8 +105,11 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   let g:ctrlp_clear_cache_on_exit = 0
 endif
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|pyc)$'
 let g:ctrlp_max_files=400000
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\.git$\|\.hg$\|\.svn$\|bower_components$\|dist$\|node_modules$\|project_files$\|test$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$',
+    \ }
 
 let g:airline_section_x = ''
 let g:airline_section_y = ''
@@ -129,10 +135,13 @@ nnoremap L :Ggr ""<left>
 highlight Comment cterm=bold
 
 let g:python_highlight_all=1
+let g:jedi#popup_on_dot = 0
 
 syntax on
 
 hi Directory guifg=#96CBFE guibg=#00ff00
+
+hi PmenuSel ctermbg=Red ctermfg=white
 
 call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
 call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')

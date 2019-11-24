@@ -1,5 +1,5 @@
 function fish_prompt
-  if not type -q 'docker'
+  if type -q 'docker'
     set_color cyan
     echo -n $file_docker ' '
   end

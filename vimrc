@@ -10,13 +10,13 @@ set noswapfile
 set ruler
 set scrolloff=5
 set shell=bash
-set shiftwidth=2
+set shiftwidth=4
 set showcmd
 set smartcase
 set t_Co=256
 set expandtab
-set tabstop=2
-set softtabstop=2
+set tabstop=4
+set softtabstop=4
 if &term =~ '^screen'
   set ttymouse=xterm2
 endif
@@ -28,13 +28,13 @@ nmap t% :tabedit %<CR>
 nmap td :tabclose <CR>
 
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/usr/local/opt/fzf
 
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
@@ -44,12 +44,14 @@ Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
 
 " Syntax
-Plugin 'davidhalter/jedi-vim'
-Plugin 'pangloss/vim-javascript'
+"Plugin 'davidhalter/jedi-vim'
+Plugin 'jdonaldson/vaxe'
 Plugin 'mxw/vim-jsx'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'pangloss/vim-javascript'
+Plugin 'vim-python/python-syntax'
 
 " Color & appearance plugins
-Plugin 'ervandew/supertab'
 Plugin 'ryanoasis/vim-webdevicons'
 Plugin 'sentientmachine/Pretty-Vim-Python'
 Plugin 'vim-airline/vim-airline-themes'
@@ -91,25 +93,28 @@ function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
  exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
-colorscheme npinsker
+set background=dark
 
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-command -nargs=+ Ggr execute 'silent Ggrep!' <q-args> | cw | redraw!
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
+"let branch = system("type 'docker'")
+colorscheme molokai
 
-  let g:ackprg = 'ag --vimgrep'
+"let g:ycm_server_python_interpreter='/usr/bin/python3'
+"let g:ycm_global_ycm_extra_conf='/home/npinsker/.vim/bundle/bazel-compilation-database/.ycm_extra_conf.py'
 
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_clear_cache_on_exit = 0
-endif
-let g:ctrlp_max_files=400000
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\.git$\|\.hg$\|\.svn$\|bower_components$\|dist$\|node_modules$\|project_files$\|test$',
-    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$',
-    \ }
+function! FzyCommand(choice_command, vim_command)
+  try
+    let output = system(a:choice_command . " | fzy ")
+  catch /Vim:Interrupt/
+    " Swallow errors from ^C, allow redraw! below
+  endtry
+  redraw!
+  if v:shell_error == 0 && !empty(output)
+    exec a:vim_command . ' ' . output
+  endif
+endfunction
+
+nnoremap <leader>f :FZF<cr>
+nnoremap <c-p> :FZF<cr>
 
 let g:airline_section_x = ''
 let g:airline_section_y = ''
@@ -131,11 +136,13 @@ let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols['Dockerfile'] = ''
 
 nnoremap K :Ggr <cword><CR>
 nnoremap L :Ggr ""<left>
+nnoremap ; :
+nnoremap : ;
 
 highlight Comment cterm=bold
 
 let g:python_highlight_all=1
-let g:jedi#popup_on_dot = 0
+"let g:jedi#popup_on_dot = 0
 
 syntax on
 
